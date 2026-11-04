@@ -15,9 +15,7 @@ export const env = createEnv({
     SESSION_SECRET: z
       .string()
       .min(16, { message: "SESSION_SECRET must be at least 32 characters" }),
-    API_BASE_URL: z.url().default("https://api.fanvue.com"),
-    FAL_KEY: z.string().min(1),
-    GROQ_API_KEY: z.string().min(1),
+    API_BASE_URL: z.url().default("https://api.fanvue.com/v1"),
   },
   runtimeEnv: {
     OAUTH_CLIENT_ID: process.env.OAUTH_CLIENT_ID,
@@ -26,16 +24,12 @@ export const env = createEnv({
     OAUTH_REDIRECT_URI: process.env.OAUTH_REDIRECT_URI,
     OAUTH_SCOPES: process.env.OAUTH_SCOPES,
     OAUTH_RESPONSE_MODE: process.env.OAUTH_RESPONSE_MODE as
-      | "query"
-      | "form_post"
-      | undefined,
+      "query" | "form_post" | undefined,
     OAUTH_PROMPT: process.env.OAUTH_PROMPT,
     BASE_URL: process.env.BASE_URL,
     SESSION_COOKIE_NAME: process.env.SESSION_COOKIE_NAME,
     SESSION_SECRET: process.env.SESSION_SECRET,
     API_BASE_URL: process.env.API_BASE_URL,
-    FAL_KEY: process.env.FAL_KEY,
-    GROQ_API_KEY: process.env.GROQ_API_KEY,
   },
   emptyStringAsUndefined: true,
 });

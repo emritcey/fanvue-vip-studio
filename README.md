@@ -1,10 +1,11 @@
-# Fanvue App Starter (Next.js App Router)
+# Fanvue VIP Studio ✨
+### Branched off of the Fanvue App Starter
 
 ## Requirements
 
 - pnpm
 - Node 18+
-- An existing Fanvue App from [Fanvue Developer Area](https://fanvue.com/developers/apps) (client id/secret)
+- An existing Fanvue App from [Fanvue Developer Area](https://fanvue.com/developers/apps) (client id/secret). 
 
 ## Setup
 
@@ -19,7 +20,7 @@ pnpm dev
 
 3. Set up HTTPS for local development:
 
-#### Option A: Using [portless](https://github.com/vercel-labs/portless) (Recommended)
+#### Using [portless](https://github.com/vercel-labs/portless) (Recommended)
 
 Portless gives you stable, named `.localhost` URLs with automatic HTTPS/HTTP2 — no manual cert generation or hosts file editing.
 
@@ -56,102 +57,81 @@ Now set your redirect URI in the Fanvue UI to match:
 https://fanvue-app-starter.localhost/api/oauth/callback
 ```
 
-#### Option B: Manual mkcert + local-ssl-proxy
+---
 
-Insert the actual name of your app instead of `[your-app-name-here]`
+## What I built
 
-Install mkcert and generate certificates
+After looking through the insights dashboard I saw that while you can get month by month data, there was no way to interact with the top spenders in a month as a group out of the box. So I thought putting together a top fans of the month app could help creators reward their top spenders (and ideally encourage them to stay and spend more). I wanted to build something straightforward and scalable. 
 
-```
-brew install mkcert
-mkcert -install
-mkcert [your-app-name-here].dev
-```
+This is the first iteration of a way to identify the top 10 spenders each month and make it easy to message them all to say thanks or send them exclusive content. 
 
-Change your hosts file
+I started by going through site and all of its offerings to try to figure out how the app store worked, what the site had on offer, and what possible gaps there could be.  and what could be done with the API. I alos tried to see what was already offered in the extensive Insights dashboard by creating a creator & user account and interacting between those acocunts. 
 
-```
-echo "127.0.0.1 [your-app-name-here].dev" | sudo tee -a /etc/hosts
-```
+I also did some competitor analysis to familiarize myself with what kinds of features users may be expecting when coming to Fanvue. Loyalty programs & rewards tiers seemed really popular and is a gap on the site. 
 
-Then run the local SSL proxy
+I then took a dive into the API to see what was and wasn't available to see what ideas were realistic. 
 
-```
-npx local-ssl-proxy --source 3001 --target 3000 --cert ./[your-app-name-here].dev.pem --key ./[your-app-name-here].dev-key.pem
-```
 
-Now setup your redirect URI in the Fanvue UI to match:
+---
 
-```
-https://[your-app-name-here].dev:3001/api/oauth/callback
-```
+### Dashboard
+After logging into the app through the Fanvue OAuth, you are taken to a Dashboard which displays top 10 spenders for the current month. Users can either choose to message the VIPs as a group, or individually.
 
-## Environment variables (.env)
+![Dashboard](./readme_assets/dashboard_with.png)
 
-### Get your Fanvue OAuth credentials
+### Message list - no list exists 
 
-1. Visit [Fanvue Developer Area](https://fanvue.com/developers)
-2. Create a new App to obtain your Client ID and Client Secret
-3. Configure a Redirect URI
-   - Development: `http://localhost:3000/api/oauth/callback`
-   - Production: `https://YOUR_DOMAIN/api/oauth/callback`
-4. Configure scopes
-   - For this starter, you need: `read:self`
-   - The scopes you set in your `.env` must exactly match what you select in the Fanvue developer UI for your app
-   - Note: The app automatically includes required system scopes (`openid`, `offline_access`, `offline`) in addition to what you set in `OAUTH_SCOPES`
+On Fanvue, the only way to send a mass message is through a list. If this is the first time coming to this page, the user is prompted if they would like to create a list.
 
-Required variables
+![Message list - no list](./readme_assets/message-list-no-list.png)
 
-- `OAUTH_CLIENT_ID`: From your Fanvue app
-- `OAUTH_CLIENT_SECRET`: From your Fanvue app
-- `OAUTH_SCOPES`: App scopes selected in the Fanvue UI (e.g. `read:self`)
-- `OAUTH_REDIRECT_URI`: Full URL to `/api/oauth/callback` for your environment
-- `SESSION_SECRET`: A random string of at least 16 characters
-- `SESSION_COOKIE_NAME` (default: `fanvue_oauth`)
+### Message list - list exists 
 
-These are not something you should change
+Once the list is created, a chat prompt appears where the user can craft a message to their list an send it. 
 
-- `OAUTH_ISSUER_BASE_URL` (default: `https://auth.fanvue.com`)
-- `API_BASE_URL` (default: `https://api.fanvue.com`)
+![Message List - send message](./readme_assets/message-list-send-message.png)
 
-Example `.env.local` (development)
+Once sent, a success screen appears and the message will have successfully been shared in the app. 
 
-```bash
-OAUTH_CLIENT_ID=YOUR_CLIENT_ID
-OAUTH_CLIENT_SECRET=YOUR_CLIENT_SECRET
-OAUTH_SCOPES=read:self
-OAUTH_REDIRECT_URI=http://localhost:3000/api/oauth/callback
-SESSION_SECRET=use-a-random-16-char-secret
-OAUTH_ISSUER_BASE_URL=https://auth.fanvue.com
-API_BASE_URL=https://api.fanvue.com
-SESSION_COOKIE_NAME=fanvue_oauth
-```
+![Message list- success](./readme_assets/message-list-success-message.png)
 
-## Production deployment
 
-- Set the same environment variables in your hosting provider for production
-- Ensure the Fanvue app has the production Redirect URI configured: `https://YOUR_DOMAIN/api/oauth/callback`
-- Ensure `OAUTH_SCOPES` exactly matches your selected scopes (e.g. `read:self`)
-- Build and run
+### Message a fan 
 
-```bash
-pnpm install
-pnpm build
-pnpm start
-```
+From the dashboard, users can also message individual fans directly. The CTA next to each user takes you to a page with text prompt. 
 
-### Recommended Services
+![Message fan](./readme_assets/message-fan.png)
 
-To deploy, we recommend using [Vercel](https://vercel.com/)
 
-If you need a database, [Supabase](https://supabase.com/) should have you covered
+Once they have sent the message, a success screen appears and the message will have been shared to this user. 
 
-Usage
+![Message fan - succes](./readme_assets/message-fan-success.png)
 
-- Visit `/` and click “Login with Fanvue”
-- After OAuth, your Fanvue current user JSON is shown
-- Click “Logout” to clear the session
 
-Docs
+### Technical pieces
+- Hits the fanvue API for GET & POST custom lists, fans, etc.
+- Utilizes Fanvue UI components
+- Essential seed data for demoing and testing locally when you don't actually have any paying fans 
 
-- Fanvue API: [https://api.fanvue.com/docs](https://api.fanvue.com/docs)
+## Future app expansion ideas
+
+This is super scalable with a lot of different directions it could go in, here are some ideas I have thought of if I was to spend more time. 
+- This is only for the current month, so access to previous/future months would be a big improvement.
+- Store and display if you have already messaged the month group, and what those messages were. Along with the data from the mass messages insights. 
+-  Create a leaderboard over time to tell who your top fans are month by month
+- A percentile ranking that could be autoshared with users (ie. You are in the top .01% of fans)
+- Notification for the creator that the end of month list has been finalized and you have a top fan of the month. 
+
+Message a fan page: 
+- Expand this page to display full chat window with chat history
+- Show on the dashboard if there are new messages from that user 
+- Display more fan details (name etc.)
+
+General messaging: 
+- Schedule automatic messages to go out to top fan or whole top 10 at the end of the month 
+- Enhance the templates, vault, and AI suggestions to prompt messages
+
+
+### Thank you!
+Okay, if you have read this far thank you so much for the time. Was fun to dig deep into Fanvue and work to understand what might be useful to a creator. I appreciate the time and consideration and hope to hear back soon! 
+😊 Emma 

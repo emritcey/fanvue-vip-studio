@@ -48,34 +48,29 @@ Then run:
 
 ```bash
 pnpm dev
-# -> https://fanvue-app-starter.localhost
+# -> https://fanvue-app-example.localhost
 ```
 
 Now set your redirect URI in the Fanvue UI to match:
 
 ```
-https://fanvue-app-starter.localhost/api/oauth/callback
+https://fanvue-app-example.localhost/api/oauth/callback
 ```
 
 ---
 
-## What I built
+## Process & what I built 
 
-After looking through the insights dashboard I saw that while you can get month by month data, there was no way to interact with the top spenders in a month as a group out of the box. So I thought putting together a top fans of the month app could help creators reward their top spenders (and ideally encourage them to stay and spend more). I wanted to build something straightforward and scalable. 
+Before beginning to build anything for this challenge, I took some time to understand how the app store worked, what features Fanvue already has on offer, what is available from the API today, and what possible gaps there could be. I ran through some creator & fan interactions by creating accounts and interacting between them. I also did some competitor analysis to familiarize myself with what kinds of features users may be expecting when coming to Fanvue (ie. on Patreon & OF). One thing I saw was that loyalty programs, rewards tiers & interacting with top fans - and saw that there was a gap for this on Fanvue. 
 
-This is the first iteration of a way to identify the top 10 spenders each month and make it easy to message them all to say thanks or send them exclusive content. 
+The insights dashboard is pretty extensive and a creator can get month by month data & top spender data, however there is no way to interact with the top spenders in a month as a group out of the box. A creator would have to manually take that step to create lists & message fans.
 
-I started by going through site and all of its offerings to try to figure out how the app store worked, what the site had on offer, and what possible gaps there could be.  and what could be done with the API. I alos tried to see what was already offered in the extensive Insights dashboard by creating a creator & user account and interacting between those acocunts. 
-
-I also did some competitor analysis to familiarize myself with what kinds of features users may be expecting when coming to Fanvue. Loyalty programs & rewards tiers seemed really popular and is a gap on the site. 
-
-I then took a dive into the API to see what was and wasn't available to see what ideas were realistic. 
-
+So, I thought putting together a top fans (VIPs) of the month app could help creators interact with & reward their top spenders faster with messages or exclusive content. I wanted to build something straightforward and scalable that could be the foundation for this app.
 
 ---
 
 ### Dashboard
-After logging into the app through the Fanvue OAuth, you are taken to a Dashboard which displays top 10 spenders for the current month. Users can either choose to message the VIPs as a group, or individually.
+After logging into the app through the Fanvue OAuth, you are taken to a Dashboard which displays top 10 spenders for the current month. Users can either choose to message the VIPs as a group, or individually. (This uses mocked this data)
 
 ![Dashboard](./readme_assets/dashboard_with.png)
 
@@ -116,20 +111,20 @@ Once they have sent the message, a success screen appears and the message will h
 ## Future app expansion ideas
 
 This is super scalable with a lot of different directions it could go in, here are some ideas I have thought of if I was to spend more time. 
-- This is only for the current month, so access to previous/future months would be a big improvement.
+- This is only for the current month, so access to previous/future months would be a big improvement. 
 - Store and display if you have already messaged the month group, and what those messages were. Along with the data from the mass messages insights. 
 -  Create a leaderboard over time to tell who your top fans are month by month
 - A percentile ranking that could be autoshared with users (ie. You are in the top .01% of fans)
 - Notification for the creator that the end of month list has been finalized and you have a top fan of the month. 
 
-Message a fan page: 
-- Expand this page to display full chat window with chat history
+Message an individual fan page: 
+- Expand this page to display full chat window with chat history 
 - Show on the dashboard if there are new messages from that user 
-- Display more fan details (name etc.)
+- Display more fan details (name etc.) 
 
 General messaging: 
 - Schedule automatic messages to go out to top fan or whole top 10 at the end of the month 
-- Enhance the templates, vault, and AI suggestions to prompt messages
+- Enhance with access to templates, vault, and AI suggestions to prompt messages
 
 
 ### Thank you!

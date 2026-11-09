@@ -14,6 +14,7 @@ import {
 } from "@fanvue/ui";
 import type { CustomList } from "@/types/customList";
 import { createVipListAction, sendVipMessageAction } from "./actions";
+import { SuccessfulScreen } from "@/components/SuccessfulScreen";
 
 export function MessageListClient({ list }: { list: CustomList | null }) {
   const [toast, setToast] = useState<ToastProps | null>(null);
@@ -47,18 +48,7 @@ export function MessageListClient({ list }: { list: CustomList | null }) {
     <>
       <Card className="w-full max-w-lg" hierarchy="primary" type="default">
         {messageSent ? (
-          <div className="flex flex-col items-center justify-center gap-4">
-            <p className="typography-header-heading-md">
-              Message sent successfully!
-            </p>
-            <Button
-              variant="secondary"
-              size="32"
-              onClick={() => setMessageSent(false)}
-            >
-              Send another message
-            </Button>
-          </div>
+          <SuccessfulScreen onSend={() => setMessageSent(false)} />
         ) : (
           <>
             <CardHeader>

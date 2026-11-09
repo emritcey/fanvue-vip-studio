@@ -10,7 +10,6 @@ vi.mock("./actions", () => ({
   sendVipMessageAction: vi.fn(),
 }));
 
-// Thin stub so we can trigger onSubmit without depending on ChatInput internals.
 vi.mock("@fanvue/ui", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@fanvue/ui")>();
   return {

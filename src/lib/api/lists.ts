@@ -3,7 +3,7 @@ import { getSession } from "../session";
 import type { CustomList, CustomListsResponse } from "@/types/customList";
 import { getFanvueHeaders } from "./headers";
 
-const LIST_NAME = `vip-liddst-${new Date().getFullYear()}-${new Date().getMonth() + 1}`;
+const LIST_NAME = `VIP List - ${new Date().getMonth() + 1}-${new Date().getFullYear()}`;
 
 export async function createCustomList() {
   const session = await getSession();

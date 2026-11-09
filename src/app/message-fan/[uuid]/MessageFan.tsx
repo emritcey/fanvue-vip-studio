@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import {
-  Button,
   Card,
   CardContent,
   CardHeader,
@@ -13,6 +12,7 @@ import {
 } from "@fanvue/ui";
 import { useParams } from "next/navigation";
 import { sendFanMessageAction } from "./actions";
+import { SuccessfulScreen } from "@/components/SuccessfulScreen";
 
 export function MessageFan() {
   const [toast, setToast] = useState<ToastProps | null>(null);
@@ -80,18 +80,3 @@ export function MessageFan() {
     </>
   );
 }
-
-const SuccessfulScreen = ({
-  onSend,
-}: {
-  onSend: () => void;
-}) => {
-  return (
-    <div className="flex flex-col items-center justify-center gap-4" data-testid="successful-screen">
-      <p className="typography-header-heading-md">Message sent successfully!</p>
-      <Button variant="secondary" size="32" onClick={onSend}>
-        Send another message
-      </Button>
-    </div>
-  );
-};

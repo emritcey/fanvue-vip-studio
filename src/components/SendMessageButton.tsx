@@ -21,8 +21,6 @@ export function SendMessageButton({
           className="w-12 justify-center px-0"
           size="48"
           variant="outline"
-          type="button"
-          aria-label="Send message"
           asChild
         >
           <Link href={`/message-fan/${spenderUuid}`}>

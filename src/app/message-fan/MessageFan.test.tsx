@@ -87,11 +87,10 @@ describe("MessageFan", () => {
         fireEvent.click(screen.getByRole("button", { name: "Send" }));
 
         await waitFor(() => {
-            // successful screen
             expect(screen.getByTestId("successful-screen")).toBeTruthy();
-            // toast title
-            expect(screen.getByText("Message sent")).toBeTruthy();
+
             expect(screen.getByTestId("message-sent-toast")).toBeTruthy();
+            expect(screen.getByText("Message sent")).toBeTruthy();
         });
     });
 
@@ -104,8 +103,8 @@ describe("MessageFan", () => {
         fireEvent.click(screen.getByRole("button", { name: "Send" }));
 
         await waitFor(() => {
-            expect(screen.getByText("Failed to send")).toBeTruthy();
             expect(screen.getByTestId("message-sent-toast")).toBeTruthy();
+            expect(screen.getByText("Failed to send")).toBeTruthy();
         });
     });
 
@@ -120,7 +119,7 @@ describe("MessageFan", () => {
             expect(screen.getByText("Message sent successfully!")).toBeTruthy();
         });
 
-        fireEvent.click(screen.getByRole("button", { name: "Send another message" }));
+        fireEvent.click(screen.getByTestId("send-another-message-button"));
 
         await waitFor(() => {
             expect(screen.getByTestId("chat-input")).toBeTruthy();

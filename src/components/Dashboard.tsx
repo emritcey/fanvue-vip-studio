@@ -38,19 +38,13 @@ export const Dashboard = ({
               Your top {topSpendersCount} spenders this {monthLabel}.
             </CardDescription>
           </div>
-          {topSpendersCount === 0 ? (
-            <Button
-              variant="outline"
-              disabled
-              data-testid="message-all-button"
-            >
-              Message all VIPs
-            </Button>
-          ) : (
-            <Button asChild variant="outline" data-testid="message-all-button">
-              <Link href="/message-list">Message all VIPs</Link>
-            </Button>
-          )}
+          <Button
+            variant="outline"
+            disabled={topSpendersCount === 0}
+            data-testid="message-all-button"
+          >
+            <Link href="/message-list">Message all VIPs</Link>
+          </Button>
         </div>
       </CardHeader>
       <CardContent>
@@ -62,7 +56,6 @@ export const Dashboard = ({
             <UserItem
               className="w-75"
               showHandle
-              showAvatar
               user={{
                 displayName: spender.user.displayName,
                 handle: spender.user.handle,

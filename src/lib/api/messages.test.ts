@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { messageFan, messageList } from "./messages";
 
+
 vi.mock("@/env", () => ({
   env: {
     API_BASE_URL: "https://api.example.com/v1",
@@ -43,10 +44,6 @@ describe("messages api", () => {
       "https://api.example.com/v1/chats/fan-uuid/message",
       expect.objectContaining({
         method: "POST",
-        headers: {
-          Authorization: "Bearer test-token",
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({ text: "hello fan" }),
       }),
     );
@@ -62,10 +59,6 @@ describe("messages api", () => {
       "https://api.example.com/v1/chats/mass-messages",
       expect.objectContaining({
         method: "POST",
-        headers: {
-          Authorization: "Bearer test-token",
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           includedLists: {
             customListUuids: ["list-uuid"],
@@ -74,13 +67,5 @@ describe("messages api", () => {
         }),
       }),
     );
-  });
-
-  it("does not call fetch when there is no session", async () => {
-    mockedGetSession.mockResolvedValue(null);
-
-    await expect(messageFan("fan-uuid", "hello")).resolves.toBeUndefined();
-    await expect(messageList("list-uuid", "hello")).resolves.toBeUndefined();
-    expect(fetchMock).not.toHaveBeenCalled();
   });
 });

@@ -102,6 +102,10 @@ Once they have sent the message, a success screen appears and the message will h
 
 ![Message fan - succes](./readme_assets/message-fan-success.png)
 
+## Full video walkthrough
+
+If you want to watch a full demo: https://www.loom.com/share/2dece1dc1fcf4e09a61b39c8672209d6 
+
 
 ### Technical pieces
 - Hits the fanvue API for GET & POST custom lists, fans, etc.
@@ -125,6 +129,10 @@ Message an individual fan page:
 General messaging: 
 - Schedule automatic messages to go out to top fan or whole top 10 at the end of the month 
 - Enhance with access to templates, vault, and AI suggestions to prompt messages
+
+Technical
+- CI/CD to actually deploy it to the store 
+- More testing & edge case handling for if there aren't enough users
 
 
 ### Thank you!
